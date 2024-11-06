@@ -1,0 +1,45 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: ClusterServiceVersion
+metadata:
+  annotations:
+    alm-examples: '[]'
+    capabilities: Basic Install
+  name: coroot-operator.1.0.2
+  namespace: placeholder
+spec:
+  apiservicedefinitions: {}
+  customresourcedefinitions:
+    owned:
+      - description: Coroot is the Schema for the coroots API
+        displayName: Coroot
+        kind: Coroot
+        name: coroots.coroot.com
+        version: v1
+  description: Coroot description
+  displayName: Coroot
+  icon:
+    - base64data: ""
+      mediatype: ""
+  install:
+    spec:
+      deployments: null
+    strategy: ""
+  installModes:
+    - supported: true
+      type: OwnNamespace
+    - supported: false
+      type: SingleNamespace
+    - supported: false
+      type: MultiNamespace
+    - supported: false
+      type: AllNamespaces
+  keywords:
+    - monitoring
+  links:
+    - name: Operator Source
+      url: https://github.com/coroot/coroot-operator
+  maturity: stable
+  provider:
+    name: Coroot Inc.
+    url: https://coroot.com
+  version: 1.0.2
