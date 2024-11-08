@@ -2,9 +2,36 @@ apiVersion: operators.coreos.com/v1alpha1
 kind: ClusterServiceVersion
 metadata:
   annotations:
-    alm-examples: '[]'
-    capabilities: Basic Install
-    features.operators.openshift.io/disconnected: 'false'
+    alm-examples: |-
+      [
+        {
+          "apiVersion": "coroot.com/v1",
+          "kind": "Coroot",
+          "metadata": {
+            "name": "coroot",
+            "namespace": "coroot"
+          },
+          "spec": {
+            "clickhouse": {
+              "replicas": 2,
+              "shards": 3,
+              "storage": {
+                "size": "200Gi"
+              }
+            },
+            "enterpriseEdition": {
+              "licenseKey": LICENSE-KEY
+            },
+            "prometheus": {
+              "storage": {
+                "size": "100Gi"
+              }
+            }
+          }
+        }
+      ]
+    capabilities: Deep Insights
+    features.operators.openshift.io/disconnected: 'true'
     features.operators.openshift.io/proxy-aware: 'false'
     features.operators.openshift.io/fips-compliant: 'false'
     features.operators.openshift.io/tls-profiles: 'false'
@@ -167,7 +194,7 @@ spec:
                   app.kubernetes.io/name: coroot-operator
               spec:
                 containers:
-                  - image: ghcr.io/coroot/coroot-operator:latest
+                  - image: ghcr.io/coroot/coroot-operator:1.0.2
                     livenessProbe:
                       httpGet:
                         path: /healthz
@@ -210,5 +237,19 @@ spec:
   provider:
     name: Coroot Inc.
     url: https://coroot.com
-  minKubeVersion: 1.18.0
   version: 1.0.2
+  relatedImages:
+    - name: coroot-operator
+      image: ghcr.io/coroot/coroot-operator:1.0.2
+    - name: coroot-ee
+      image: ghcr.io/coroot/coroot-ee:1.5.15
+    - name: coroot-node-agent
+      image: ghcr.io/coroot/coroot-node-agent:1.22.0
+    - name: coroot-cluster-agent
+      image: ghcr.io/coroot/coroot-cluster-agent:1.1.1
+    - name: clickhouse
+      image: ghcr.io/coroot/clickhouse:24.8.4-ubi9-0
+    - name: prometheus
+      image: ghcr.io/coroot/prometheus:2.54.1-ubi9-0
+    - name: kube-state-metrics
+      image: ghcr.io/coroot/kube-state-metrics:2.13.0-ubi9-0
