@@ -240,16 +240,16 @@ spec:
   version: 1.0.2
   relatedImages:
     - name: coroot-operator
-      image: ghcr.io/coroot/coroot-operator:1.0.2
+      image: ghcr.io/coroot/coroot-operator:sha256:fa6ac2a789d98a35ee6be839f5b0880c21fc2b8f9e2cb1c769193d6d22535ed3
     - name: coroot-ee
-      image: ghcr.io/coroot/coroot-ee:1.5.15
+      image: ghcr.io/coroot/coroot-ee:sha256:925ecc321f4d9a1dd5fffc156729d62fab570ddd990b4a12aaf556d96997862f
     - name: coroot-node-agent
-      image: ghcr.io/coroot/coroot-node-agent:1.22.0
+      image: ghcr.io/coroot/coroot-node-agent:sha256:31a26b2b9018250aedb5ffee6d210113997e51cc34b699ab1a27b5487cf33e88
     - name: coroot-cluster-agent
-      image: ghcr.io/coroot/coroot-cluster-agent:1.1.1
+      image: ghcr.io/coroot/coroot-cluster-agent:sha256:6b7f3b127285f7add7d4a1d8ce41ff5edf2ef87a716eee04443492e794931a2e
     - name: clickhouse
-      image: ghcr.io/coroot/clickhouse:24.8.4-ubi9-0
+      image: ghcr.io/coroot/clickhouse:sha256:cfb4a91fe247a437ea29aeb789066ccb0b6d156a75fefe4b813036265347ad37
     - name: prometheus
-      image: ghcr.io/coroot/prometheus:2.54.1-ubi9-0
+      image: ghcr.io/coroot/prometheus:sha256:14797e1b2f223eb2ed68d3302205493362a1a463b5a5a2df02bfa38bed40c8ea
     - name: kube-state-metrics
-      image: ghcr.io/coroot/kube-state-metrics:2.13.0-ubi9-0
+      image: ghcr.io/coroot/kube-state-metrics:sha256:3144f86a6b3473967bf939240c5e0d025354c2a3bed65a6264b26cbcbc215cdb
