@@ -20,7 +20,7 @@ metadata:
               }
             },
             "enterpriseEdition": {
-              "licenseKey": LICENSE-KEY
+              "licenseKey": "LICENSE-KEY"
             },
             "prometheus": {
               "storage": {
@@ -194,7 +194,7 @@ spec:
                   app.kubernetes.io/name: coroot-operator
               spec:
                 containers:
-                  - image: ghcr.io/coroot/coroot-operator:1.0.2
+                  - image: ghcr.io/coroot/coroot-operator:sha256:fa6ac2a789d98a35ee6be839f5b0880c21fc2b8f9e2cb1c769193d6d22535ed3
                     livenessProbe:
                       httpGet:
                         path: /healthz
