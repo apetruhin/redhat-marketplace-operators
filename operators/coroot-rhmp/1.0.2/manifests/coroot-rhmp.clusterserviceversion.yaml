@@ -25,9 +25,173 @@ spec:
   description: Coroot description
   displayName: Coroot
   install:
-    spec:
-      deployments: null
     strategy: deployment
+    spec:
+      clusterPermissions:
+        - rules:
+            - apiGroups:
+                - ""
+              resources:
+                - endpoints
+                - namespaces
+                - nodes
+                - persistentvolumes
+                - pods
+              verbs:
+                - get
+                - list
+                - watch
+            - apiGroups:
+                - ""
+              resources:
+                - events
+              verbs:
+                - create
+                - patch
+            - apiGroups:
+                - ""
+              resources:
+                - persistentvolumeclaims
+                - serviceaccounts
+                - services
+              verbs:
+                - create
+                - delete
+                - get
+                - list
+                - patch
+                - update
+                - watch
+            - apiGroups:
+                - ""
+              resources:
+                - secrets
+              verbs:
+                - create
+                - list
+                - watch
+            - apiGroups:
+                - apps
+              resources:
+                - cronjobs
+                - daemonsets
+                - deployments
+                - replicasets
+                - statefulsets
+              verbs:
+                - create
+                - delete
+                - get
+                - list
+                - patch
+                - update
+                - watch
+            - apiGroups:
+                - batch
+              resources:
+                - cronjobs
+                - jobs
+              verbs:
+                - create
+                - delete
+                - get
+                - list
+                - patch
+                - update
+                - watch
+            - apiGroups:
+                - coroot.com
+              resources:
+                - coroots
+              verbs:
+                - create
+                - delete
+                - get
+                - list
+                - patch
+                - update
+                - watch
+            - apiGroups:
+                - coroot.com
+              resources:
+                - coroots/finalizers
+              verbs:
+                - update
+            - apiGroups:
+                - coroot.com
+              resources:
+                - coroots/status
+              verbs:
+                - get
+                - patch
+                - update
+            - apiGroups:
+                - rbac.authorization.k8s.io
+              resources:
+                - clusterrolebindings
+                - clusterroles
+              verbs:
+                - create
+                - delete
+                - get
+                - list
+                - patch
+                - update
+                - watch
+            - apiGroups:
+                - storage.k8s.io
+              resources:
+                - storageclasses
+                - volumeattachments
+              verbs:
+                - create
+                - delete
+                - get
+                - list
+                - patch
+                - update
+                - watch
+          serviceAccountName: coroot-operator
+      deployments:
+        - label:
+            app.kubernetes.io/name: coroot-operator
+          name: coroot-operator
+          spec:
+            selector:
+              matchLabels:
+                app.kubernetes.io/name: coroot-operator
+            strategy: {}
+            template:
+              metadata:
+                labels:
+                  app.kubernetes.io/name: coroot-operator
+              spec:
+                containers:
+                  - image: ghcr.io/coroot/coroot-operator:latest
+                    livenessProbe:
+                      httpGet:
+                        path: /healthz
+                        port: 8081
+                      initialDelaySeconds: 15
+                      periodSeconds: 20
+                    name: operator
+                    readinessProbe:
+                      httpGet:
+                        path: /readyz
+                        port: 8081
+                      initialDelaySeconds: 5
+                      periodSeconds: 10
+                    resources:
+                      limits:
+                        cpu: 500m
+                        memory: 256Mi
+                      requests:
+                        cpu: 100m
+                        memory: 64Mi
+                securityContext:
+                  runAsNonRoot: true
+                serviceAccountName: coroot-operator
+                terminationGracePeriodSeconds: 10
   installModes:
     - supported: true
       type: OwnNamespace
